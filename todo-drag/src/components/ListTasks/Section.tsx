@@ -41,22 +41,39 @@ SectionProps) {
 		tasksToMap = done
 	}
 
+	console.log("tasks in Sec", tasks)
+
 	//function for dragging and dropping tasks
 	function addItemToSection(id: any) {
-		const task = tasks?.find((t: any) => t?.id === id)
+		setTasks((prevTasks: any) => {
+			const modifiedTasks = prevTasks.map((task: any) => {
+				if (task.id === id) {
+					return { ...task, status: status }
+				}
+				return task
+			})
+			localStorage.setItem("tasks", JSON.stringify(modifiedTasks))
+			return modifiedTasks
+		})
 
-		if (task) {
-			const newTasks = tasks?.filter((t: any) => t?.id !== id)
-			task.status = status
-			const updatedTasks = [...newTasks, task]
-			localStorage.setItem("tasks", JSON.stringify(updatedTasks))
-			setTasks(updatedTasks)
-		} else {
-			// Handle the case where the task is not found
-			console.error("Task with ID", id, "not found in tasks")
-		}
+		// const task = tasks?.find((t: any) => t?.id === id)
+		// console.log("task", task)
 
-		//console.log("task", task)
+		// if (task) {
+		// 	const newTasks = tasks?.filter((t: any) => t?.id !== id)
+		// 	task.status = status
+		// 	const updatedTasks = [...newTasks, task]
+
+		// 	setTasks((prevTasks: any) => {
+		//         localStorage.setItem("tasks", JSON.stringify(updatedTasks))
+		//         return updatedTasks
+		//     })
+		// } else {
+		// 	// Handle the case where the task is not found
+		// 	console.error("Task with ID", id, "not found in tasks")
+		// }
+
+		// //console.log("task", task)
 	}
 
 	return (

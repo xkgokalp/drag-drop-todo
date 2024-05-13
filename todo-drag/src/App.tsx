@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import "./App.css"
 import CreateTask from "./components/CreateTask"
 import ListTasks from "./components/ListTasks/ListTasks"
-import { data, dataTwo } from "./data"
+import { data } from "./data"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { DndProvider } from "react-dnd"
@@ -10,12 +10,7 @@ import { HTML5Backend } from "react-dnd-html5-backend"
 import { v4 as uuidv4 } from "uuid"
 
 function App() {
-	const dataWithIds = dataTwo.map((task: any) => ({
-		...task,
-		id: uuidv4(),
-	}))
-
-	const [tasks, setTasks] = useState<any>(dataWithIds || [])
+	const [tasks, setTasks] = useState<any>(data || [])
 
 	useEffect(() => {
 		const tasks = localStorage.getItem("tasks")

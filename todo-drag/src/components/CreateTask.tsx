@@ -29,8 +29,6 @@ const CreateTask = ({ tasks, setTasks }: TaskProps) => {
 		assignee: "",
 	})
 
-	//console.log(task)
-
 	function handleSubmit(e: any) {
 		e.preventDefault() //prevent the page from refreshing
 
