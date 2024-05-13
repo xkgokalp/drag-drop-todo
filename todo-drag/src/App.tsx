@@ -7,19 +7,17 @@ import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
-import { v4 as uuidv4 } from "uuid"
 
 function App() {
 	const [tasks, setTasks] = useState<any>(data || [])
 
 	useEffect(() => {
+		//useEffect hook to get tasks from local storage
 		const tasks = localStorage.getItem("tasks")
 		if (tasks) {
 			setTasks(JSON.parse(tasks))
 		}
 	}, [])
-
-	console.log("tasks", tasks)
 
 	return (
 		<DndProvider backend={HTML5Backend}>

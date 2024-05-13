@@ -3,7 +3,6 @@ import CustomButton from "./CustomButton/CustomButton"
 import { useState } from "react"
 import { TaskProps } from "../types"
 import { v4 as uuidv4 } from "uuid"
-import { data } from "../data"
 import { toast } from "react-toastify"
 import { BiTask } from "react-icons/bi"
 import { ImMenu3 } from "react-icons/im"
@@ -41,6 +40,7 @@ const CreateTask = ({ tasks, setTasks }: TaskProps) => {
 			)
 
 		setTasks((prevTasks: any) => {
+			//set the tasks
 			const list = [...prevTasks, task]
 			localStorage.setItem("tasks", JSON.stringify(list))
 			return list

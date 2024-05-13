@@ -7,11 +7,10 @@ const ListTasks = ({ tasks, setTasks }: TaskProps) => {
 	const [inProgress, setInProgress] = useState<any>([])
 	const [done, setDone] = useState<any>([])
 
-	//const [activeCard, setActiveCard] = useState<any>(null)
-
 	const statuses = ["To Do", "In Progress", "Done"]
 
 	useEffect(() => {
+		//useEffect hook to filter tasks based on status
 		const filteredTodos = tasks?.filter(
 			(task: any) => task?.status === "To Do",
 		)
@@ -38,7 +37,6 @@ const ListTasks = ({ tasks, setTasks }: TaskProps) => {
 					todos={todos}
 					inProgress={inProgress}
 					done={done}
-					// setActiveCard={setActiveCard}
 				/>
 			))}
 		</div>
