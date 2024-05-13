@@ -5,7 +5,10 @@ type DeleteButtonProps = {
 }
 export default function DeleteButton({ onClick }: DeleteButtonProps) {
 	return (
-		<button onClick={onClick}>
+		<button
+			onClick={onClick}
+			className=" bg-slate-100 rounded-3xl p-2 transition-colors hover:bg-slate-200"
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"

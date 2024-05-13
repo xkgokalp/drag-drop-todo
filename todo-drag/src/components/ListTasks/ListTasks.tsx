@@ -7,7 +7,7 @@ const ListTasks = ({ tasks, setTasks }: TaskProps) => {
 	const [inProgress, setInProgress] = useState<any>([])
 	const [done, setDone] = useState<any>([])
 
-	const [activeCard, setActiveCard] = useState<any>(null)
+	//const [activeCard, setActiveCard] = useState<any>(null)
 
 	const statuses = ["To Do", "In Progress", "Done"]
 
@@ -28,7 +28,7 @@ const ListTasks = ({ tasks, setTasks }: TaskProps) => {
 	}, [tasks])
 
 	return (
-		<div className="flex gap-16 justify-evenly w-3/4">
+		<div className="flex gap-16 justify-evenly w-4/5 ">
 			{statuses.map((status, index) => (
 				<Section
 					key={index}
@@ -38,7 +38,7 @@ const ListTasks = ({ tasks, setTasks }: TaskProps) => {
 					todos={todos}
 					inProgress={inProgress}
 					done={done}
-					setActiveCard={setActiveCard}
+					// setActiveCard={setActiveCard}
 				/>
 			))}
 		</div>

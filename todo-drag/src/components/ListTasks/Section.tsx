@@ -1,6 +1,7 @@
 import React from "react"
 import SectionHeader from "./SectionHeader"
 import TaskCard from "./TaskCard"
+import { useDrop } from "react-dnd"
 
 type SectionProps = {
 	status?: string
@@ -9,7 +10,7 @@ type SectionProps = {
 	todos: any
 	inProgress?: any
 	done?: any
-	setActiveCard?: any
+	//setActiveCard?: any
 }
 
 function Section({
@@ -19,23 +20,54 @@ function Section({
 	todos,
 	inProgress,
 	done,
-	setActiveCard,
-}: SectionProps) {
-	let bg = "bg-red-400"
+}: //setActiveCard,
+SectionProps) {
+	const [{ isOver }, drop] = useDrop(() => ({
+		accept: "task",
+		drop: (item: any) => addItemToSection(item.id),
+		collect: (monitor) => ({
+			isOver: !!monitor.isOver(),
+		}),
+	}))
+
+	let bg = "bg-red-600"
 	let tasksToMap = todos
 
 	if (status === "In Progress") {
-		bg = "bg-yellow-400"
+		bg = "bg-yellow-500"
 		tasksToMap = inProgress
 	} else if (status === "Done") {
-		bg = "bg-green-400"
+		bg = "bg-green-500"
 		tasksToMap = done
 	}
 
+	//function for dragging and dropping tasks
+	function addItemToSection(id: any) {
+		const task = tasks?.find((t: any) => t?.id === id)
+
+		if (task) {
+			const newTasks = tasks?.filter((t: any) => t?.id !== id)
+			task.status = status
+			const updatedTasks = [...newTasks, task]
+			localStorage.setItem("tasks", JSON.stringify(updatedTasks))
+			setTasks(updatedTasks)
+		} else {
+			// Handle the case where the task is not found
+			console.error("Task with ID", id, "not found in tasks")
+		}
+
+		//console.log("task", task)
+	}
+
 	return (
-		<div className="flex flex-col w-3/4 rounded-b-md rounded-bl-md">
+		<div className="flex flex-col w-1/3 rounded-b-md rounded-bl-md max-w-fit">
 			<SectionHeader status={status} tasksToMap={tasksToMap} bg={bg} />
-			<div className="bg-rose-50 rounded-b-md rounded-bl-md pb-2 ">
+			<div
+				ref={drop}
+				className={` rounded-b-md rounded-bl-md pb-2 shadow-2xl ${
+					isOver ? "bg-slate-400" : "bg-rose-50"
+				}`}
+			>
 				{tasksToMap &&
 					tasksToMap.map((task: any) => (
 						<TaskCard
